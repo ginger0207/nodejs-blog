@@ -137,6 +137,9 @@ app.use(function (req, res, next) {
   return;
 });
 
-app.listen(3000, () => {
-  console.log("Blog server is running on port 3000!");
+app.listen(process.env.PORT || 3000, () => {
+  if (process.env.PORT)
+    console.log(`Blog server is running on port ${process.env.PORT}!`);
+  else
+    console.log("Blog server is running on port 3000!");
 });
