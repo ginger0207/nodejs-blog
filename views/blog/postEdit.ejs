@@ -1,0 +1,40 @@
+<%- include ("../partials/header") %>
+
+<form action="/<%= user %>/blog/post/<%= post[0].id %>/?_method=PUT" method="POST" id="postForm">
+  <div class="form-group col-md-10 mx-auto">
+    <input type="text" class="form-control" name="post[title]" placeholder="Title" value="<%= post[0].title %>"  required>
+  </div>
+  <div class="form-group col-md-10 mx-auto row justify-content-center">
+		<label for="tag_select" class="col-form-label col-sm-2 text-center px-1">Choose a tag:</label>
+		<select id="tag_select" class="custom-select col-sm-6 mx-2" name="post[tag]" style="display: block;">
+			<% for (let tag of tagList) { %> 
+        <% if (tag === post[0].tag) { %> 
+          <option value="<%= tag %>" selected><%= tag %></option>
+        <% } else { %> 
+          <option value="<%= tag %>"><%= tag %></option>
+        <% } %> 
+			<% } %> 
+		</select>
+		<input type="text" id="newTag" class="col-sm-6" name="post[newTag]" style="display: none;">
+		<button type="button" class="btn btn-primary" id="newTagBtn"><i class="fas fa-plus mr-1"></i>New tag</button>
+	</div>
+  <div class="form-group col-md-10 mx-auto">
+		<input type="hidden" class="form-control" name="post[content]" id="hidden_input">
+		<div id="editor" style="background-color: white; min-height: 300px;">
+		</div>
+	</div>
+  <div class="form-group text-center">
+		<input type="submit" class="btn btn-primary" value="Submit">
+	</div>
+</form>
+
+<script>
+  let post = <%- JSON.stringify(post[0]) %>;
+</script>
+<script src="/javascript/quill.js"></script>;
+<script src="/javascript/image-resize.min.js"></script>
+<script src="/javascript/image-drop.min.js"></script>
+<script src="/javascript/quill.imageUploader.min.js"></script>
+<script src="/javascript/blog/postEdit.js"></script>
+
+<%- include ("../partials/footer") %>

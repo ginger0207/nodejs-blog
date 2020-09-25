@@ -1,0 +1,58 @@
+<%- include ("./partials/header") %>
+
+<div class="container-fluid">
+  <div class="row justify-content-around">
+    <div class="col-sm-8">
+      <h2 style="text-align: center;">All Posts</h2>
+
+      <hr>
+
+      <!-- pagination -->
+      <div style="margin: 20px 0;">
+        <% if(postPagination.page - 1) { %>
+          <a href="<%= paginateUrl %><%= postPagination.page - 1 %>">Prev</a>
+        <% } %>
+        <% if (postPagination.pages > 1) { %>
+        <% for(let i = 1; i <= postPagination.pages; i++) { %>
+          <a href="<%= paginateUrl %><%= i %>"
+            <%= i === postPagination.page ? 'style=color:#000;' : '' %>
+            ><%= i %></a>
+        <% } %>
+        <% } %>
+        <% if((postPagination.page + 1) <= postPagination.pages) { %>
+          <a href="<%= paginateUrl %><%= postPagination.page + 1 %>">Next</a>
+        <% } %>
+      </div>
+
+      <% posts.forEach(post => { %>
+        <hr>
+        <div>
+          <h4><a href="/<%= post.author %>/blog/post/<%= post.id %>"><%= post.title %></a></h4>
+          <h6><i><a href="/<%= post.author %>/profile"><%= post.author %></a> posted at: <%= post.created_at.toLocaleDateString() %>, <%= post.created_at.toLocaleTimeString() %></i></h6>
+          <p><%- post.content.slice(0, 300).replace(/<[^>]*?>/g, ' ').replace(/\s{2,}/g, ' ').trim() %>...</p>
+          <h6 style="color: #555555;"><b>Tag: <%= post.tag %> </b></h6>
+          <h6>(<a href="/<%= post.author %>/blog/post/<%= post.id %>">Read More</a>)</h6>
+        </div>
+      <% }); %>
+
+      <!-- pagination -->
+      <div style="margin: 20px 0;">
+        <% if(postPagination.page - 1) { %>
+          <a href="<%= paginateUrl %><%= postPagination.page - 1 %>">Prev</a>
+        <% } %>
+        <% if (postPagination.pages > 1) { %>
+        <% for(let i = 1; i <= postPagination.pages; i++) { %>
+          <a href="<%= paginateUrl %><%= i %>"
+            <%= i === postPagination.page ? 'style=color:#000;' : '' %>
+            ><%= i %></a>
+        <% } %>
+        <% } %>
+        <% if((postPagination.page + 1) <= postPagination.pages) { %>
+          <a href="<%= paginateUrl %><%= postPagination.page + 1 %>">Next</a>
+        <% } %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include ("./partials/footer") %>

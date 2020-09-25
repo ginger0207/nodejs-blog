@@ -1,0 +1,84 @@
+<%- include ("../partials/header") %>
+
+<div class="container-fluid">
+  <div class="row justify-content-around">
+    <div class="col-sm-8">
+      <h2 style="text-align: center;"><a href="/<%= owner %>/blog"><%= owner %>'s Blog</a></h2>
+
+      <hr>
+
+      <!-- pagination -->
+      <div style="margin: 20px 0;">
+        <% if(postPagination.page - 1) { %>
+          <a href="<%= paginateUrl %><%= postPagination.page - 1 %>">Prev</a>
+        <% } %>
+        <% if (postPagination.pages > 1) { %>
+        <% for(let i = 1; i <= postPagination.pages; i++) { %>
+          <a href="<%= paginateUrl %><%= i %>"
+            <%= i === postPagination.page ? 'style=color:#000;' : '' %>
+            ><%= i %></a>
+        <% } %>
+        <% } %>
+        <% if((postPagination.page + 1) <= postPagination.pages) { %>
+          <a href="<%= paginateUrl %><%= postPagination.page + 1 %>">Next</a>
+        <% } %>
+      </div>
+
+      <% if (user === owner) { %> 
+        <a href="/<%= owner %>/blog/postNew"><i class="far fa-plus-square mr-1"></i>Create new post</a>
+        <!-- <a href="./postNew"> Create new post</a> -->
+      <% } %>
+
+      <% posts.forEach(post => { %>
+        <hr>
+        <div>
+          <h4><a href="/<%= owner %>/blog/post/<%= post.id %>"><%= post.title %></a></h4>
+          <h6><i>Posted at: <%= post.created_at.toLocaleDateString() %>, <%= post.created_at.toLocaleTimeString() %></i></h6>
+          <p><%- post.content.slice(0, 300).replace(/<[^>]*?>/g, ' ').replace(/\s{2,}/g, ' ').trim() %>...</p>
+          <h6 style="color: #555555;"><b>Tag: <%= post.tag %> </b></h6>
+          <h6>(<a href="/<%= owner %>/blog/post/<%= post.id %>">Read More</a>)</h6>
+        </div>
+      <% }); %>
+
+
+      <% if (user === owner && posts.length !== 0) { %> 
+        <hr>
+        <a href="/<%= owner %>/blog/postNew"><i class="far fa-plus-square mr-1"></i>Create new post</a>
+        <!-- <a href="./postNew"> Create new post</a> -->
+      <% } %> 
+
+      <!-- pagination -->
+      <div style="margin: 20px 0;">
+        <% if(postPagination.page - 1) { %>
+          <a href="<%= paginateUrl %><%= postPagination.page - 1 %>">Prev</a>
+        <% } %>
+        <% if (postPagination.pages > 1) { %>
+        <% for(let i = 1; i <= postPagination.pages; i++) { %>
+          <a href="<%= paginateUrl %><%= i %>"
+            <%= i === postPagination.page ? 'style=color:#000;' : '' %>
+            ><%= i %></a>
+        <% } %>
+        <% } %>
+        <% if((postPagination.page + 1) <= postPagination.pages) { %>
+          <a href="<%= paginateUrl %><%= postPagination.page + 1 %>">Next</a>
+        <% } %>
+      </div>
+    </div>
+    <div class="col-sm-3">
+      <div class="d-flex flex-column align-items-center">
+        <h5>About me:</h5>
+        <a href="/<%= owner %>/profile">
+          <img src="<%= avatar %>" alt="avatar" style="height: 150px; width: 150px; overflow: hidden;">
+        </a>
+        <p style="font-size: 1.5rem;"><a href="/<%= owner %>/profile"><%= owner %></a></p>
+        
+        <h5>tags:</h5>
+        <% tagList.forEach(tag => { %>
+          <a href="/<%= owner %>/blog/tag/<%= tag[0] %>"><%= tag[0] %>(<%= tag[1] %>)</a>
+        <% }); %> 
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include ("../partials/footer") %>
