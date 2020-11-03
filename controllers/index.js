@@ -213,14 +213,11 @@ module.exports = {
       to: user.email,
       from: "yunghsiu.dev@gmail.com", // Use the email address or domain you verified above
       subject: "MyBlog - Forgot Password / Reset",
-      text: `You are receiving this because you (or someone else) have requested the reset of the password for your account.
-      Please click on the following link, or copy and paste it into your browser to complete the process:
-      http://${req.headers.host}/reset-password/${token}
-      If you did not request this, please ignore this email and your password will remain unchanged.`.replace(
-        /      /g,
-        ""
-      ),
-      // html: "<strong>and easy to do anywhere, even with Node.js</strong>",
+      html: `Hello,<br>
+      You are receiving this because you (or someone else) have requested the reset of the password for your account.<br>
+      Please click on the following link, or copy and paste it into your browser to complete the process:<br>
+      <a clicktracking=off href="https://${req.headers.host}/reset-password/${token}">https://${req.headers.host}/reset-password/${token}</a><br>
+      If you did not request this, please ignore this email and your password will remain unchanged.`,
     };
     await sgMail.send(msg);
 
@@ -272,13 +269,9 @@ module.exports = {
       to: user.email,
       from: "yunghsiu.dev@gmail.com", // Use the email address or domain you verified above
       subject: "MyBlog - Password Changed",
-      text: `Hello,
-      This email is to confirm that the password for your account has just been changed.
-      If you did not make this change, please hit reply and notify us at once.`.replace(
-        /      /g,
-        ""
-      ),
-      // html: "<strong>and easy to do anywhere, even with Node.js</strong>",
+      html: `Hello,<br>
+      This email is to confirm that the password for your account has just been changed.<br>
+      If you did not make this change, please hit reply and notify us at once.`,
     };
     await sgMail.send(msg);
 
