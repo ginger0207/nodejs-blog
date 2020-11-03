@@ -161,11 +161,11 @@ module.exports = {
     let images = {};
     for (let img of matches) {
       // console.log("img:", img);
-      if (images_tmp[img]) {
+      if (images_tmp && images_tmp[img]) {
         images[img] = images_tmp[img];
         delete images_tmp[img];
       }
-      if (images_prev[img]) {
+      if (images_prev && images_prev[img]) {
         images[img] = images_prev[img];
         delete images_prev[img];
       }
