@@ -107,6 +107,12 @@ module.exports = {
   // POST /register
   async postRegister(req, res, next) {
     try {
+      let duplicateUser = (await db("users").where("username", req.body.username)).length;
+      if (duplicateUser)
+        throw Error("duplicate username")
+      let duplicateEmail = (await db("users").where("email", req.body.email)).length;
+      if (duplicateEmail)
+        throw Error("duplicate email")
       await createUser(req);
       passport.authenticate("local", (err, user, info) => {
         if (user) {
@@ -121,6 +127,12 @@ module.exports = {
       let error = err.message;
       if (error.includes("duplicate") && error.includes("username")) {
         error = "A user with the given username is already registered";
+        req.session.flash = {
+          type: "error",
+          message: error,
+        };
+      } else if (error.includes("duplicate") && error.includes("email")) {
+        error = "A user with the given email is already registered";
         req.session.flash = {
           type: "error",
           message: error,
