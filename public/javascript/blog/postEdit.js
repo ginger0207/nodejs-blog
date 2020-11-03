@@ -9,6 +9,7 @@ Quill.register(Font, true);
 
 var quill = new Quill("#editor", {
   modules: {
+    syntax: true,
     imageResize: {
       displaySize: true,
     },

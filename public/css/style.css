@@ -96,3 +96,7 @@ img {
 .ql-font-Noto-Serif-TC {
   font-family: "Noto Serif TC", sans-serif;
 }
+
+.ql-syntax {
+  background-color: whitesmoke;
+}
