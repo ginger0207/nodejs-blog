@@ -29,7 +29,7 @@
         <div>
           <h4><a href="/<%= post.author %>/blog/post/<%= post.id %>"><%= post.title %></a></h4>
           <h6><i><a href="/<%= post.author %>/profile"><%= post.author %></a> posted at: <%= post.created_at.toLocaleDateString() %>, <%= post.created_at.toLocaleTimeString() %></i></h6>
-          <p><%- post.content.slice(0, 300).replace(/<[^>]*?>/g, ' ').replace(/\s{2,}/g, ' ').trim() %>...</p>
+          <p><%- post.content.replace(/<[^>]*?>/g, ' ').replace(/\s{2,}/g, ' ').trim().slice(0, 300) %>...</p>
           <h6 style="color: #555555;"><b>Tag: <%= post.tag %> </b></h6>
           <h6>(<a href="/<%= post.author %>/blog/post/<%= post.id %>">Read More</a>)</h6>
         </div>

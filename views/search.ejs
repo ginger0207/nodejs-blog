@@ -29,12 +29,13 @@
         <div>
           <h4><a href="/<%= post.author %>/blog/post/<%= post.id %>"><%= post.title %></a></h4>
           <h6><i><a href="/<%= post.author %>/profile"><%= post.author %></a> posted at: <%= post.created_at.toLocaleDateString() %>, <%= post.created_at.toLocaleTimeString() %></i></h6>
-          <% let index = post.content.search(re); %>
+          <% let clipped = post.content.replace(/<[^>]*?>/g, ' ').replace(/\s{2,}/g, ' ').trim() %>
+          <% let index = clipped.search(re); %>
           <% let start = (index-150) < 0 ? 0 : (index-150); %>
-          <% let end = (index+150) > post.content.length ? post.content.length : (index+150); %>
-          <% let clipped = post.content.slice(start, end).replace(/<[^>]*?>/g, ' ').replace(/\s{2,}/g, ' ').trim().replace(re, '<strong style="color:red;">$&</strong>') %>
+          <% let end = (index+150) > clipped.length ? clipped.length : (index+150); %>
+          <% clipped = clipped.slice(start, end).replace(re, '<strong style="color:red;">$&</strong>') %> 
           <% if (start > 0) clipped = "......" + clipped %>
-          <% if (end < post.content.length-1) clipped = clipped + "......" %>
+          <% if (end < clipped.length-1) clipped = clipped + "......" %>
           
           <p><%- clipped %></p>
           <h6 style="color: #555555;"><b>Tag: <%= post.tag %> </b></h6>
