@@ -11,7 +11,7 @@
       <h4>Latest Posts:</h4>
       <% latestPosts.forEach((post) => { %>
         <h5><a href="/<%= post.author %>/blog/post/<%= post.id %>"><%= post.title %></a></h5>
-        <h6>Posted by: <a href="/<%= post.author %>/profile"><%= post.author %></a> at <%= post.created_at.toLocaleDateString() %>, <%= post.created_at.toLocaleTimeString() %></h6>
+        <h6>Posted by: <a href="/<%= post.author %>/profile"><%= post.author %></a> at <span class="time"><%= post.created_at %></span></h6>
       <% }) %>
     </div>
 
@@ -19,11 +19,19 @@
       <h4>Hottest Posts Today:</h4>
       <% hottestPostsToday.forEach((post) => { %>
         <h5><a href="/<%= post.author %>/blog/post/<%= post.id %>"><%= post.title %></a></h5>
-        <h6>Posted by: <a href="/<%= post.author %>/profile"><%= post.author %></a> at <%= post.created_at.toLocaleDateString() %>, <%= post.created_at.toLocaleTimeString() %></h6>
+        <h6>Posted by: <a href="/<%= post.author %>/profile"><%= post.author %></a> at <span class="time"><%= post.created_at %></span></h6>
       <% }) %>
     </div>
   </div>
 </div>
+
+<script>
+  let timeLabel = document.querySelectorAll(".time");
+  for (let t of timeLabel) {
+    let time = new Date(t.innerHTML);
+    t.innerHTML = time.toLocaleString('en-US');
+  }
+</script>
 
 <%- include ("./partials/footer") %>
   

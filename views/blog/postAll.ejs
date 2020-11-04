@@ -33,13 +33,20 @@
         <hr>
         <div>
           <h4><a href="/<%= owner %>/blog/post/<%= post.id %>"><%= post.title %></a></h4>
-          <h6><i>Posted at: <%= post.created_at.toLocaleDateString() %>, <%= post.created_at.toLocaleTimeString() %></i></h6>
+          <h6><i>Posted at: <span class="time"><%= post.created_at %></span></i></h6>
           <p><%- post.content.replace(/<[^>]*?>/g, ' ').replace(/\s{2,}/g, ' ').trim().slice(0, 300) %>...</p>
           <h6 style="color: #555555;"><b>Tag: <%= post.tag %> </b></h6>
           <h6>(<a href="/<%= owner %>/blog/post/<%= post.id %>">Read More</a>)</h6>
         </div>
       <% }); %>
 
+      <script>
+        let timeLabel = document.querySelectorAll(".time");
+        for (let t of timeLabel) {
+          let time = new Date(t.innerHTML);
+          t.innerHTML = time.toLocaleString('en-US');
+        }
+      </script>
 
       <% if (user === owner && posts.length !== 0) { %> 
         <hr>

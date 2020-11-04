@@ -8,7 +8,7 @@
       <hr>
 
       <div><h1><%= post.title %></h1></div>
-      <div><h6>Posted at: <%= post.created_at.toLocaleDateString() %>, <%= post.created_at.toLocaleTimeString() %></h6></div>
+      <div><h6>Posted at: <span class="time"><%= post.created_at %></span></h6></div>
       <div><h6>Views: <%= post.totalVisits %></h6></div>
 
       <hr>
@@ -48,8 +48,7 @@
         <% comments.forEach((comment) => { %>
           <hr>
           <div>
-            <h6><b><%= comment.author %>:</b></h6>
-            <h6><i>Commented at: <%= comment.created_at.toLocaleDateString() %>, <%= comment.created_at.toLocaleTimeString() %></i></h6>
+            <h6><b><%= comment.author %> <i><span class="time"><%= comment.created_at %></span></i>:</b></h6>
             <p><%= comment.content %></p>
             <% if(user === comment.author) { %>
               <form id="commentEditForm" style="display: none;" action="/<%= owner %>/blog/post/<%= post.id %>/comment/<%= comment.id %>/?_method=PUT" method="POST">
@@ -105,6 +104,14 @@
     </div>
   </div>
 </div>
+
+<script>
+  let timeLabel = document.querySelectorAll(".time");
+  for (let t of timeLabel) {
+    let time = new Date(t.innerHTML);
+    t.innerHTML = time.toLocaleString('en-US');
+  }
+</script>
 
 <!-- Include your favorite highlight.js stylesheet -->
 <link rel="stylesheet"
