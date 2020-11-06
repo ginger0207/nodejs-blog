@@ -1,6 +1,6 @@
 <%- include ("../partials/header") %>
 
-<div class="container-fluid">
+<div class="container my-5 py-3" style="background-color: white; ">
   <div class="row justify-content-around">
     <div class="col-sm-8">
       <h2 style="text-align: center;"><a href="/<%= owner %>/blog"><%= owner %>'s Blog</a></h2>
@@ -14,6 +14,14 @@
       <hr>
 
       <div><%- post.content %></div>
+
+      <h6 style="color: #555555;"><b>Tag: <a href="/<%= post.author %>/blog/tag/<%= post.tag %>"><%= post.tag %></a> </b></h6>
+      <% if (prev.title) { %>
+      <h6 style="color: #555555;">< Prev: <a href="/<%= post.author %>/blog/post/<%= prev.id %>"><%= prev.title %></a> </h6>
+      <% } %> 
+      <% if (next.title) { %> 
+      <h6 style="color: #555555;">> Next: <a href="/<%= post.author %>/blog/post/<%= next.id %>"><%= next.title %></a> </h6>
+      <% } %> 
 
       <% if(user === owner) { %> 
         <div class="container text-center">
@@ -48,7 +56,7 @@
         <% comments.forEach((comment) => { %>
           <hr>
           <div>
-            <h6><b><%= comment.author %> <i><span class="time"><%= comment.created_at %></span></i>:</b></h6>
+            <h6><b><a href="/<%= comment.author %>/profile"><%= comment.author %></a> <i><span class="time"><%= comment.created_at %></span></i>:</b></h6>
             <p><%= comment.content %></p>
             <% if(user === comment.author) { %>
               <form id="commentEditForm" style="display: none;" action="/<%= owner %>/blog/post/<%= post.id %>/comment/<%= comment.id %>/?_method=PUT" method="POST">
@@ -84,7 +92,7 @@
         
       <% } else { %> 
         <hr>
-          <h5>Please login or register to leave a comment!</h5>
+          <h5>Please <a href="/login">login</a> or <a href="/register">register</a> to leave a comment!</h5>
       <% } %>
     </div>
 

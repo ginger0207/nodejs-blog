@@ -1,30 +1,32 @@
 <%- include ("../partials/header") %>
 
-<form action="postCreate" method="POST" id="postForm">
-	<div class="form-group col-md-10 mx-auto">
-		<input type="text" class="form-control" name="post[title]" placeholder="Title" required>
-	</div>
-	<div class="form-group col-md-10 mx-auto row justify-content-center align-items-center">
-		<label for="tag_select" class="col-form-label col-md-2 text-center px-1">Choose a tag:</label>
-		<select id="tag_select" class="custom-select col-sm-6 mx-2" name="post[tag]" style="display: block;">
-			<option value="undefined" selected>undefined</option>
-			<% for (let tag of tagList) { %> 
-				<% if (tag === "undefined") continue; %> 
-				<option value="<%= tag %>"><%= tag %></option>
-			<% } %> 
-		</select>
-		<input type="text" id="newTag" class="col-sm-6" name="post[newTag]" style="display: none;">
-		<button type="button" class="btn btn-primary" id="newTagBtn"><i class="fas fa-plus mr-1"></i>New tag</button>
-	</div>
-	<div class="form-group col-md-10 mx-auto">
-		<input type="hidden" class="form-control" name="post[content]" id="hidden_input">
-		<div id="editor" style="background-color: white; min-height: 300px;">
+<div class="container my-5 py-3" style="background-color: white; ">
+	<form action="postCreate" method="POST" id="postForm">
+		<div class="form-group col-md-10 mx-auto">
+			<input type="text" class="form-control" name="post[title]" placeholder="Title" required>
 		</div>
-	</div>
-	<div class="form-group text-center">
-		<input type="submit" class="btn btn-primary" value="Submit">
-	</div>
-</form>
+		<div class="form-group col-md-10 mx-auto row justify-content-center align-items-center">
+			<label for="tag_select" class="col-form-label col-md-2 text-center px-1">Choose a tag:</label>
+			<select id="tag_select" class="custom-select col-sm-6 mx-2" name="post[tag]" style="display: block;">
+				<option value="undefined" selected>undefined</option>
+				<% for (let tag of tagList) { %> 
+					<% if (tag === "undefined") continue; %> 
+					<option value="<%= tag %>"><%= tag %></option>
+				<% } %> 
+			</select>
+			<input type="text" id="newTag" class="col-sm-6" name="post[newTag]" style="display: none;">
+			<button type="button" class="btn btn-primary" id="newTagBtn"><i class="fas fa-plus mr-1"></i>New tag</button>
+		</div>
+		<div class="form-group col-md-10 mx-auto">
+			<input type="hidden" class="form-control" name="post[content]" id="hidden_input">
+			<div id="editor" style="background-color: white; min-height: 300px;">
+			</div>
+		</div>
+		<div class="form-group text-center">
+			<input type="submit" class="btn btn-primary" value="Submit">
+		</div>
+	</form>
+</div>
 
 <!-- Include your favorite highlight.js stylesheet -->
 <link rel="stylesheet"

@@ -1,14 +1,14 @@
 <%- include ("./partials/header") %>
   
 <div class="jumbotron container my-4 py-4">
-  <h1 class="display-5">Welcome to Blogger</h1>
-  <p class="lead">This is a small blogger where you could post some articles.</p>
+  <h1 class="display-5" style="text-align: center;">Welcome to Blogger</h1>
+  <p class="lead" style="text-align: center;">A small blogger where you could post some articles.</p>
 </div>
 
-<div class="container">
+<div class="container my-5 px-5 py-3" style="background-color: white; ">
   <div class="row">
     <div class="col-6">
-      <h4>Latest Posts:</h4>
+      <h4 style="text-align: center;">Latest Posts:</h4>
       <% latestPosts.forEach((post) => { %>
         <h5><a href="/<%= post.author %>/blog/post/<%= post.id %>"><%= post.title %></a></h5>
         <h6>Posted by: <a href="/<%= post.author %>/profile"><%= post.author %></a> at <span class="time"><%= post.created_at %></span></h6>
@@ -16,7 +16,7 @@
     </div>
 
     <div class="col-6">
-      <h4>Hottest Posts Today:</h4>
+      <h4 style="text-align: center;">Today's Hottest:</h4>
       <% hottestPostsToday.forEach((post) => { %>
         <h5><a href="/<%= post.author %>/blog/post/<%= post.id %>"><%= post.title %></a></h5>
         <h6>Posted by: <a href="/<%= post.author %>/profile"><%= post.author %></a> at <span class="time"><%= post.created_at %></span></h6>

@@ -1,6 +1,6 @@
 <%- include ("./partials/header") %>
 
-<div class="container-fluid">
+<div class="container my-5 py-3" style="background-color: white; ">
   <div class="row justify-content-around">
     <div class="col-sm-8">
       <h2 style="text-align: center;">Search result</h2>
@@ -38,7 +38,6 @@
           <% if (end < clipped.length-1) clipped = clipped + "......" %>
           
           <p><%- clipped %></p>
-          <h6 style="color: #555555;"><b>Tag: <%= post.tag %> </b></h6>
           <h6>(<a href="/<%= post.author %>/blog/post/<%= post.id %>">Read More</a>)</h6>
         </div>
       <% }); %>

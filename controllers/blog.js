@@ -57,6 +57,22 @@ module.exports = {
     await updateVisits(req);
     let post = await getPost(req);
     if (post.length) {
+      post = post[0];
+      let neighbor = await db.raw(
+        "select * from ( \
+        select * , \
+          lag(id) over (order by id asc, created_at asc) as prev_id, \
+          lag(title) over (order by id asc, created_at asc) as prev_title, \
+          lead(id) over (order by id asc, created_at asc) as next_id, \
+          lead(title) over (order by id asc, created_at asc) as next_title \
+        from posts \
+         where author = ? and tag = ?\
+      ) as foo \
+      where id = ?",
+        [post.author, post.tag, post.id]
+      );
+      neighbor = neighbor.rows[0];
+      console.log(neighbor)
       let comments = await getAllComments(req);
       let profile = await db("users").where("username", req.blogOwner).first();
       let tagList = await getTagLists(req.blogOwner);
@@ -66,10 +82,12 @@ module.exports = {
       res.render("blog/postShow", {
         user: req.currentUser,
         owner: req.blogOwner,
-        post: post[0],
+        post,
         comments,
         avatar,
         tagList,
+        prev: { id: neighbor.prev_id, title: neighbor.prev_title },
+        next: { id: neighbor.next_id, title: neighbor.next_title },
       });
     } else {
       req.session.error = "Post does not exist!";
