@@ -72,7 +72,7 @@ module.exports = {
         [post.author, post.tag, post.id]
       );
       neighbor = neighbor.rows[0];
-      console.log(neighbor)
+      // console.log(neighbor)
       let comments = await getAllComments(req);
       let profile = await db("users").where("username", req.blogOwner).first();
       let tagList = await getTagLists(req.blogOwner);
